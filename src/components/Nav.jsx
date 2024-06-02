@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "./Modal";
 import { toast } from "react-toastify";
 import {
@@ -49,11 +49,9 @@ function Nav(props) {
 
   async function logout() {
     try {
-      const response = await axios.get(`${BACKEND_URL}/user/logout`,
-        {
+      const response = await axios.get(`${BACKEND_URL}/user/logout`, {
         withCredentials: true,
-        }
-      );
+      });
       console.log(response);
       dispatch(SET_LOGIN(false));
       navigate("/login");
@@ -64,7 +62,7 @@ function Nav(props) {
 
   return (
     <>
-      <div className="flex justify-between p-4 pt-6 bg-white shadow-md">
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-between  p-4 pt-6 bg-white shadow-md">
         <div className="text-green-950">
           <a href={props.href0}>
             <h2 className="text-5xl font-bold">TripMate</h2>
@@ -120,7 +118,7 @@ function Nav(props) {
         />
       </div>
       {mobileMenu && (
-        <div className="md:hidden flex flex-col items-center bg-white shadow-md py-4">
+        <div className="md:hidden flex flex-col items-center bg-white shadow-md py-4 mt-20">
           {obj.map((nav, index) => (
             <a
               key={index}

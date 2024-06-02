@@ -5,7 +5,6 @@ import Layout from "./layout/Layout";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { SET_LOGIN } from "./redux/features/auth/authSlice";
-import useRedirectLogoutUsers from "./hooks/redirectLogoutUsers";
 function App() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const dispacth = useDispatch();
@@ -18,8 +17,7 @@ function App() {
     }
     loginStatus();
   }, []);
-  useRedirectLogoutUsers("/login");
-
+  
   return (
     <>
       <Layout />

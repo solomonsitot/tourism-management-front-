@@ -83,7 +83,7 @@ function AUsers() {
   };
 
   return (
-    <>
+    <div className="bg-gray-900 text-white h-screen overflow-y-scroll">
       <Nav
         href0="/admin"
         link1="Destinations"
@@ -93,21 +93,23 @@ function AUsers() {
         link3="Users"
         href3="/admin/manage-user"
       />
-      <div className="min-h-screen flex flex-col items-center justify-center bg-green-950">
-        <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
-          <h1 className="text-3xl font-bold mb-4 text-green-950">Users List</h1>
+      <div className="pt-20  overflow-y-scroll flex flex-col items-center justify-center bg-gradient-to-r from-green-800 to-green-600">
+        <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg w-full max-w-4xl">
+          <h1 className="text-2xl md:text-3xl font-bold mb-4 text-green-900">
+            Users List
+          </h1>
           <ul className="space-y-4">
             {users.map((user, index) => (
               <li
                 key={index}
-                className="flex justify-between items-center p-4 border-b border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors rounded-md cursor-pointer"
+                className="flex flex-col md:flex-row justify-between items-start md:items-center p-4 border-b border-gray-300 bg-gray-50 hover:bg-gray-100 transition-colors rounded-md cursor-pointer"
                 onClick={() => handleUserClick(user._id)}
               >
-                <div className="flex items-center space-x-4">
-                  <div className="text-lg font-semibold text-green-950">
+                <div className="flex flex-col md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-4">
+                  <div className="text-lg font-semibold text-green-900">
                     {user.full_name} ({user.role})
                   </div>
-                  <div className="text-sm text-gray-500">===={">"}</div>
+                  <div className="hidden md:block text-sm text-gray-500">|</div>
                   <div
                     className={`text-sm ${
                       user.verification_status === "verified"
@@ -118,9 +120,9 @@ function AUsers() {
                     {user.verification_status}
                   </div>
                 </div>
-                <div className="space-x-4">
+                <div className="mt-4 md:mt-0 space-x-4">
                   <button
-                    className="bg-green-950 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
+                    className="bg-green-900 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded"
                     onClick={(e) => {
                       e.stopPropagation();
                       verifyUser(user._id);
@@ -143,61 +145,61 @@ function AUsers() {
           </ul>
         </div>
         {isModalOpen && userDetails && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md md:max-w-lg lg:max-w-xl max-h-screen overflow-y-auto">
-              <h2 className="text-2xl font-bold mb-4 text-green-950">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 md:p-8">
+            <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg w-full max-w-md md:max-w-lg lg:max-w-xl max-h-screen overflow-y-auto">
+              <h2 className="text-xl md:text-2xl font-bold mb-4 text-green-900">
                 User Details
               </h2>
               {userDetails.body.profile_image && (
                 <img
                   src={userDetails.body.profile_image}
                   alt="Profile"
-                  className="mb-4 rounded-full mx-auto w-24 h-24"
+                  className="mb-4 rounded-full mx-auto w-24 h-24 border-4 border-green-900"
                 />
               )}
               {userDetails.body.full_name && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Name:</strong> {userDetails.body.full_name}
                 </p>
               )}
               {userDetails.body.email && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Email:</strong> {userDetails.body.email}
                 </p>
               )}
               {userDetails.body.role && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Role:</strong> {userDetails.body.role}
                 </p>
               )}
               {userDetails.body.verification_status && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Verification Status:</strong>{" "}
                   {userDetails.body.verification_status}
                 </p>
               )}
               {userDetails.body.company_name && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Company Name:</strong> {userDetails.body.company_name}
                 </p>
               )}
               {userDetails.body.description && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Description:</strong> {userDetails.body.description}
                 </p>
               )}
               {userDetails.body.phone_number && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Phone Number:</strong> {userDetails.body.phone_number}
                 </p>
               )}
               {userDetails.body.passport_id && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Passport ID:</strong> {userDetails.body.passport_id}
                 </p>
               )}
               {userDetails.body.bussiness_license && (
-                <p className="text-green-950">
+                <p className="text-green-900">
                   <strong>Business License:</strong>{" "}
                   <a
                     href={userDetails.body.bussiness_license}
@@ -232,7 +234,7 @@ function AUsers() {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
 

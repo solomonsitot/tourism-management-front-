@@ -6,8 +6,10 @@ import {
   faMapMarkerAlt,
   faDollarSign,
   faBed,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
+import ReactStars from "react-rating-stars-component";
 
 function THotelDetail() {
   useRedirectLogoutUsers("/login");
@@ -36,8 +38,23 @@ function THotelDetail() {
     fetchRooms();
   }, [id]);
 
+  const handleRatingChange = async (newRating, roomId) => {
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/rooms/rate-room/${roomId}`,
+        {
+          rate: newRating,
+        },
+        { withCredentials: true }
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to submit rating", error);
+    }
+  };
+
   return (
-    <div className="p-3 h-screen overflow-y-scroll bg-gray-100">
+    <div className="p-3 mt-20 h-screen overflow-y-scroll bg-gray-100">
       <div className="w-11/12 mx-auto bg-white p-5 rounded shadow">
         <h1 className="font-bold text-3xl pt-3">
           {hotelObj.company_name} / {hotelObj.address}
@@ -83,7 +100,23 @@ function THotelDetail() {
             <p className="mt-2">{room.room_description}</p>
             <div className="flex justify-between items-center mt-4">
               <div>
-                <div className="flex items-center">
+                <div className="flex items-center mt-2">
+                  <ReactStars
+                    isHalf={true}
+                    value={room.room_rate.value}
+                    count={5}
+                    onChange={(newRating) =>
+                      handleRatingChange(newRating, room._id)
+                    }
+                    size={24}
+                    activeColor="#ffd700"
+                  />
+                  <div className="ml-2 flex items-center">
+                    <FontAwesomeIcon icon={faUsers} className="text-gray-500 mr-1" />
+                    <p>{room.room_rate.rater_number}</p>
+                  </div>
+                </div>
+                <div className="flex items-center mt-2">
                   <FontAwesomeIcon
                     icon={faDollarSign}
                     className="text-gray-500 mr-2"

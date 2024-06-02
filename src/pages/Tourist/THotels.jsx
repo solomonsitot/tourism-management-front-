@@ -22,95 +22,92 @@ function THotels() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(
-        `${BACKEND_URL}/user/search-hotel/${key}`
-      );
+      const result = await axios.get(`${BACKEND_URL}/user/search-hotel/${key}`);
       setHotels(result.data);
     }
     fetchData();
   }, [key]);
 
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <Nav
-         href0="/tourist"
-         link1="Discover"
-         href1="/tourist/destinations"
-         link2="Blogs"
-         href2="/tourist/see-blogs"
-         link3="Hotels"
-         href3="/tourist/see-hotels"
-         link4="Tours"
-         href4="/tourist/tours"
+        href0="/tourist"
+        link1="Discover"
+        href1="/tourist/destinations"
+        link2="Blogs"
+        href2="/tourist/see-blogs"
+        link3="Hotels"
+        href3="/tourist/see-hotels"
+        link4="Tours"
+        href4="/tourist/tours"
         // setting={contact}
         // menu={menu}
         // stat={stat}
       />
-      <div className="w-full text-center">
+      <div className="w-full mt-20 text-center my-8">
         <h1 className="text-center text-4xl font-semibold">All Hotels</h1>
         <div className="flex h-14 justify-center mt-7">
-          <img
-            className="h-full pl-8 pr-2 self-center p-3 border-solid border-2 border-r-0 rounded-r-none border-green-950 rounded-2xl"
-            src={searchIcon}
-            alt="Search"
-          />
-          <input
-            className="w-2/3 h-full self-center p-3 border-solid border-2 border-l-0 rounded-l-none border-green-950 rounded-2xl focus:outline-none"
-            type="text"
-            placeholder="Search for hotels..."
-            onChange={(e) => {
-              setKey(e.target.value);
-            }}
-          />
-        </div>
-      </div>
-      {hotels.map((hotel, index) => (
-        <div key={index} className="my-4 w-11/12 mx-auto">
-          <div className="block lg:flex gap-8 w-full lg:w-9/12 mx-auto py-10">
-            <img
-              className="w-11/12 mx-auto lg:w-2/5 rounded-xl py-5"
-              src={hotel.profile_image}
-              alt="Hotel"
+          <div className="relative w-2/3">
+            <input
+              className="w-full h-full p-4 border-solid border-2 border-gray-300 rounded-full focus:outline-none pl-12"
+              type="text"
+              placeholder="Search for hotels..."
+              onChange={(e) => {
+                setKey(e.target.value);
+              }}
             />
-            <div className="w-5/6 mx-auto lg:w-3/5 rounded-xl">
-              <h1 className="font-bold text-green-950 text-3xl m-2">
-                {hotel.company_name}
-              </h1>
-              <div className="flex items-center">
-                <img className="p-2" src={locationIcon} alt="Location" />
-                <p className="text-green-700">{hotel.address}</p>
-              </div>
-              <div className="my-3 flex items-center">
-                <img className="mr-3" src={commentIcon} alt="Comment" />
-                <p>{hotel.description}</p>
-              </div>
-              <p className="text-gray-700 font-bold mb-2">Great For</p>
-              <div className="flex flex-wrap gap-4">
-                <div className="bg-green-900 p-2 flex rounded-lg items-center">
-                  <img className="h-5 mr-2" src={starIcon} alt="Star" />
-                  <p>Entertainment</p>
-                </div>
-                <div className="bg-green-900 p-2 flex rounded-lg items-center">
-                  <img className="h-5 mr-2" src={starIcon} alt="Star" />
-                  <p>Sport</p>
-                </div>
-                <div className="bg-green-900 p-2 flex rounded-lg items-center">
-                  <img className="h-5 mr-2" src={starIcon} alt="Star" />
-                  <p>Activity</p>
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  navigate(`detail/${hotel._id}`);
-                }}
-                className="bg-green-900 px-2 py-1 text-white mt-6 rounded-lg"
-              >
-                See Rooms {">>"}
-              </button>
-            </div>
+            <img
+              className="absolute left-4 top-3 p-2 w-8 h-8"
+              src={searchIcon}
+              alt="Search"
+            />
           </div>
         </div>
-      ))}
+      </div>
+      <div className="py-10 px-5 lg:px-20">
+        {hotels.map((hotel, index) => (
+          <div
+            key={index}
+            className="bg-white shadow-lg rounded-lg overflow-hidden mb-10"
+          >
+            <div className="lg:flex">
+              <img
+                className="w-full lg:w-1/3 object-cover h-64"
+                src={hotel.profile_image || hotelImage}
+                alt="Hotel"
+              />
+              <div className="p-5 lg:w-2/3">
+                <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                  {hotel.company_name}
+                </h1>
+                <div className="flex items-center text-gray-600 mb-4">
+                  <img className="h-5 mr-2" src={locationIcon} alt="Location" />
+                  <p>{hotel.address}</p>
+                </div>
+                <p className="text-gray-600 mb-4">{hotel.description}</p>
+                <p className="text-gray-800 font-bold mb-2">Great For</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {["Entertainment", "Sport", "Activity"].map((item) => (
+                    <div
+                      key={item}
+                      className="bg-green-600 text-white px-3 py-1 rounded-full text-sm flex items-center"
+                    >
+                      <img className="h-4 mr-1" src={starIcon} alt="Star" />
+                      <p>{item}</p>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={() => navigate(`detail/${hotel._id}`)}
+                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+                >
+                  See Rooms &gt;&gt;
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

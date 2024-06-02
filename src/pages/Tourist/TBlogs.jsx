@@ -43,7 +43,7 @@ function TBlogs() {
         // menu={menu}
         // stat={stat}
       />
-      <div className="w-full text-center">
+      <div className="w-full mt-20 text-center">
         <h1 className="text-center text-4xl font-semibold">All Posts</h1>
         <div className="flex h-14 justify-center  mt-7">
           <img

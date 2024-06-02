@@ -33,7 +33,7 @@ function HReservations() {
         link2="Reservation"
         href2="/hotel manager/see-reservation"
       />
-      <div className="min-h-screen bg-green-950 text-white p-8">
+      <div className="min-h-screen mt-20 bg-green-950 text-white p-8">
         <h1 className="text-4xl font-bold text-center mb-8">Reservations</h1>
         {reservations.length === 0 ? (
           <p className="text-xl text-center">No reservations found.</p>

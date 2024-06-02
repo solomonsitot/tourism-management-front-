@@ -57,38 +57,42 @@ const HHome = () => {
         link2="Reservation"
         href2="/hotel manager/see-reservation"
       />
-      <div className="max-w-4xl mx-auto mt-10 p-6 bg-green-950 text-white rounded-md shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-white">My Rooms</h2>
+      <div className="max-w-4xl mt-20 mx-auto mt-10 p-6 bg-gray-100 text-gray-800 rounded-md shadow-md">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">My Rooms</h2>
         <div className="space-y-6">
           {rooms.length > 0 ? (
             rooms.map((room) => (
               <div
                 key={room._id}
-                className="bg-white text-black p-4 rounded-md shadow-md"
+                className="bg-white text-gray-900 p-4 rounded-md shadow-md transition-transform transform hover:scale-105"
               >
                 {room.room_image && room.room_image.length > 0 && (
-                  <img
-                    src={room.room_image[0]} // Display the first image
-                    alt={room.room_name}
-                    className="w-full h-64 object-cover rounded-md mb-4"
-                  />
+                  <div className="relative h-64 overflow-hidden rounded-md mb-4">
+                    <img
+                      src={room.room_image[0]} // Display the first image
+                      alt={room.room_name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 )}
-                <h3 className="text-xl font-bold">{room.room_name}</h3>
-                <p>{room.room_description}</p>
-                <p>Price: ${room.room_price}</p>
-                <p>Available: {room.room_available}</p>
-                <button
-                  onClick={() => handleEdit(room._id)}
-                  className="mr-4 py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(room._id)}
-                  className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700"
-                >
-                  Delete
-                </button>
+                <h3 className="text-xl font-bold mb-2">{room.room_name}</h3>
+                <p className="mb-2">{room.room_description}</p>
+                <p className="font-semibold mb-2">Price: ${room.room_price}</p>
+                <p className="font-semibold mb-4">Available: {room.room_available}</p>
+                <div className="flex space-x-4">
+                  <button
+                    onClick={() => handleEdit(room._id)}
+                    className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(room._id)}
+                    className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition-colors"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))
           ) : (

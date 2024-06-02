@@ -115,7 +115,10 @@ function Login() {
             Login
           </button>
           <p className="mt-4">
-            have No account{" "}
+          <a className="text-blue-500" href="/forgot-password">
+              forgot password 
+            </a>
+             {" have No account "}
             <a className="text-blue-500" href="/">
               SignUp
             </a>

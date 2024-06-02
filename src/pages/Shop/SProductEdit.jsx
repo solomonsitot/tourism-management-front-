@@ -1,49 +1,49 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import Nav from "../../components/Nav";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const HRoomEdit = () => {
+function SProductEdit() {
   useRedirectLogoutUsers("/login");
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  const [roomName, setRoomName] = useState("");
-  const [roomPrice, setRoomPrice] = useState("");
-  const [roomAmount, setRoomAmount] = useState("");
-  const [roomDescription, setRoomDescription] = useState("");
-  const [roomImages, setRoomImages] = useState([null, null, null]);
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+  const [productAmount, setProductAmount] = useState("");
+  const [productDescription, setProductDescription] = useState("");
+  const [productImages, setProductImages] = useState([null, null, null]);
   const [currentImages, setCurrentImages] = useState(["", "", ""]);
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchRoom = async () => {
+    const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `${BACKEND_URL}/rooms/get-single/${id}`,
+          `${BACKEND_URL}/goods/get-single/${id}`,
           {
             withCredentials: true,
           }
         );
-        const room = response.data;
-        setRoomName(room.room_name);
-        setRoomPrice(room.room_price);
-        setRoomAmount(room.room_amount);
-        setRoomDescription(room.room_description);
-        setCurrentImages(room.room_image);
+        const product = response.data;
+        setProductName(product.product_name);
+        setProductPrice(product.product_price);
+        setProductAmount(product.product_quantity);
+        setProductDescription(product.product_description);
+        setCurrentImages(product.product_images);
       } catch (error) {
-        toast.error("Error fetching room details: " + error.message);
+        toast.error("Error fetching product details: " + error.message);
       }
     };
-    fetchRoom();
+    fetchProduct();
   }, [id]);
 
   const handleImageChange = (index, event) => {
-    const files = [...roomImages];
+    const files = [...productImages];
     files[index] = event.target.files[0];
-    setRoomImages(files);
+    setProductImages(files);
 
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -58,11 +58,11 @@ const HRoomEdit = () => {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("room_name", roomName);
-    formData.append("room_price", roomPrice);
-    formData.append("room_amount", roomAmount);
-    formData.append("room_description", roomDescription);
-    roomImages.forEach((image, index) => {
+    formData.append("product_name", productName);
+    formData.append("product_price", productPrice);
+    formData.append("product_quantity", productAmount);
+    formData.append("product_description", productDescription);
+    productImages.forEach((image, index) => {
       if (image) {
         formData.append(`image${index + 1}`, image);
       }
@@ -70,7 +70,7 @@ const HRoomEdit = () => {
 
     try {
       const response = await axios.put(
-        `${BACKEND_URL}/rooms/update/${id}`,
+        `${BACKEND_URL}/goods/update/${id}`,
         formData,
         { withCredentials: true },
         {
@@ -84,29 +84,22 @@ const HRoomEdit = () => {
         navigate("/hotel manager");
       }, 3000);
     } catch (error) {
-      toast.error("Error updating room: " + error.message);
+      toast.error("Error updating product: " + error.message);
     }
   };
 
   return (
-    <>
+    <div>
       <Nav
-        href0="/hotel manager"
-        link1="Add Room"
-        href1="/hotel manager/add-room"
-        link2="Reservation"
-        href2="/hotel manager/see-reservation"
-        // link3="Hotels"
-        // href3="/hotel manager/see-hotels"
-        // link4="Tours"
-        // href4="/hotel manager/tours"
-        // setting={contact}
-        // menu={menu}
-        // stat={stat}
+        href0="/shop owner"
+        link1="Add Product"
+        href1="/shop owner/add-product"
+        link2="Purchases"
+        href2="/shop owner/see-purchasement"
       />
-      <div className="min-h-screen mt-20 bg-green-950 text-white p-4 flex flex-col items-center">
+            <div className="min-h-screen mt-20 bg-green-950 text-white p-4 flex flex-col items-center">
         <h1 className="text-4xl font-bold text-center text-golden mb-8">
-          Edit Room
+          Edit Product
         </h1>
         <form
           onSubmit={handleSubmit}
@@ -115,15 +108,15 @@ const HRoomEdit = () => {
           <div>
             <label
               className="block text-lg font-semibold mb-2"
-              htmlFor="roomName"
+              htmlFor="productName"
             >
-              Room Name
+              Product Name
             </label>
             <input
               type="text"
-              id="roomName"
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
+              id="productName"
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
               className="w-full px-3 py-2 border rounded"
               required
             />
@@ -131,15 +124,15 @@ const HRoomEdit = () => {
           <div>
             <label
               className="block text-lg font-semibold mb-2"
-              htmlFor="roomPrice"
+              htmlFor="productPrice"
             >
-              Room Price
+              Product Price
             </label>
             <input
               type="number"
-              id="roomPrice"
-              value={roomPrice}
-              onChange={(e) => setRoomPrice(e.target.value)}
+              id="productPrice"
+              value={productPrice}
+              onChange={(e) => setProductPrice(e.target.value)}
               className="w-full px-3 py-2 border rounded"
               required
             />
@@ -147,15 +140,15 @@ const HRoomEdit = () => {
           <div>
             <label
               className="block text-lg font-semibold mb-2"
-              htmlFor="roomAmount"
+              htmlFor="productAmount"
             >
-              Room Amount
+              Product Amount
             </label>
             <input
               type="number"
-              id="roomAmount"
-              value={roomAmount}
-              onChange={(e) => setRoomAmount(e.target.value)}
+              id="productAmount"
+              value={productAmount}
+              onChange={(e) => setProductAmount(e.target.value)}
               className="w-full px-3 py-2 border rounded"
               required
             />
@@ -163,28 +156,28 @@ const HRoomEdit = () => {
           <div>
             <label
               className="block text-lg font-semibold mb-2"
-              htmlFor="roomDescription"
+              htmlFor="productDescription"
             >
-              Room Description
+              Product Description
             </label>
             <textarea
-              id="roomDescription"
-              value={roomDescription}
-              onChange={(e) => setRoomDescription(e.target.value)}
+              id="productDescription"
+              value={productDescription}
+              onChange={(e) => setProductDescription(e.target.value)}
               className="w-full px-3 py-2 border rounded"
               required
             ></textarea>
           </div>
           <div>
             <label className="block text-lg font-semibold mb-2">
-              Room Images
+              Product Images
             </label>
             {currentImages.map((img, index) => (
               <div key={index} className="mb-4">
                 {img && (
                   <img
                     src={img}
-                    alt={`Room Image ${index + 1}`}
+                    alt={`Product Image ${index + 1}`}
                     className="mb-2 w-full h-32 object-cover rounded"
                   />
                 )}
@@ -201,12 +194,12 @@ const HRoomEdit = () => {
             type="submit"
             className="w-full bg-golden text-white px-4 py-2 rounded hover:bg-yellow-600"
           >
-            Update Room
+            Update Product
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
-};
+}
 
-export default HRoomEdit;
+export default SProductEdit;

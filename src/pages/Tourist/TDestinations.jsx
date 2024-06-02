@@ -57,7 +57,7 @@ const TDestinations = () => {
         link4="Tours"
         href4="/tourist/tours"
       />
-      <div className="min-h-screen bg-white text-green-950 flex flex-col items-center p-4">
+      <div className="min-h-screen mt-20 bg-white text-green-950 flex flex-col items-center p-4">
         <h1 className="text-4xl font-bold mb-8">
           Tourist Destinations
         </h1>

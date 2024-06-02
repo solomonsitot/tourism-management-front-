@@ -72,7 +72,7 @@ function THotelReservation() {
         link4="Tours"
         href4="/tourist/tours"
       />
-      <div className="w-11/12 mx-auto mt-8">
+      <div className="w-11/12 mt-20 mx-auto mt-8">
         <p className="text-3xl font-bold mb-6">Reservation</p>
         <div className="flex flex-wrap md:flex-nowrap gap-6">
           <div className="w-full md:w-2/3 border-2 border-green-800 p-4 rounded bg-white shadow">

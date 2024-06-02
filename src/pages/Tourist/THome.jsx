@@ -59,7 +59,7 @@ function THome() {
         link4="Tours"
         href4="/tourist/tours"
       />
-      <div className="flex flex-col md:flex-row justify-between pt-14 px-5">
+      <div className="flex mt-20 flex-col md:flex-row justify-between pt-14 px-5">
         <div className="md:w-1/2 lg:w-2/3">
           <img className="h-16" src={weather} alt="Weather" />
           <div className="flex items-center">

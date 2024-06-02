@@ -71,7 +71,7 @@ function TGTours() {
         link2="Subscriptions"
         href2="/tour guide/see-subscriptions"
       />
-      <div className="max-w-4xl mx-auto mt-10 p-6 bg-green-950 text-white rounded-md shadow-md">
+      <div className="max-w-4xl mt-20 mx-auto mt-10 p-6 bg-green-950 text-white rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-white">
           Add New Tour Package
         </h2>
