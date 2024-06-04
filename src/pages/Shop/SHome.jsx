@@ -22,7 +22,7 @@ function SHome() {
           }
         );
         console.log(response);
-        setItems(response.data || []);
+        setItems(response.data);
       } catch (error) {
         toast.error("Error fetching goods: " + error.message);
       }

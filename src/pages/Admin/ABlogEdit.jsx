@@ -6,7 +6,7 @@ import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faImage } from "@fortawesome/free-solid-svg-icons";
 import Nav from "../../components/Nav";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const ABlogEdit = () => {
   useRedirectLogoutUsers("/login");
@@ -19,13 +19,11 @@ const ABlogEdit = () => {
   const [imagePreview, setImagePreview] = useState(null); // State to store image preview
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     async function fetchBlog() {
       try {
-        const result = await axios.get(
-          `${BACKEND_URL}/blogs/get-single/${id}`
-        );
+        const result = await axios.get(`${BACKEND_URL}/blogs/get-single/${id}`);
         setTitle(result.data.blog_title);
         setDescription(result.data.blog_description);
         setImagePreview(result.data.blog_image);
@@ -59,7 +57,7 @@ const ABlogEdit = () => {
       );
       toast.success(result.data.message);
       setTimeout(() => {
-        navigate("/admin");
+        navigate("/admin/all-blogs");
       }, 3000);
     } catch (error) {
       console.error("Error updating blog:", error);
@@ -87,8 +85,6 @@ const ABlogEdit = () => {
           href1="/admin/add-destination"
           link2="Blogs"
           href2="/admin/add-blog"
-          link3="Users"
-          href3="/admin/manage-user"
         />
       </div>
       <div className="overflow-y-scroll h-screen pt-20 flex items-center justify-center bg-green-950">

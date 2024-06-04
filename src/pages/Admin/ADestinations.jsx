@@ -43,7 +43,7 @@ function ADestinations() {
       );
       toast.success(result.data.message);
       setTimeout(() => {
-        navigate("/admin");
+        navigate("/admin/all-destinations");
       }, 3000);
     } catch (error) {
       console.error("Error uploading destination:", error);
@@ -69,10 +69,8 @@ function ADestinations() {
         href1="/admin/add-destination"
         link2="Blogs"
         href2="/admin/add-blog"
-        link3="Users"
-        href3="/admin/manage-user"
       />
-      <div className="overflow-y-scroll h-screen pt-20 flex items-center justify-center bg-green-950">
+      <div className="overflow-y-scroll h-screen pt-20 flex items-center justify-center bg-white">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl flex">
           <div className="w-2/3 pr-8">
             <h1 className="text-3xl font-bold mb-4 text-green-950">

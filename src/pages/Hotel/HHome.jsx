@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Nav from "../../components/Nav";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const HHome = () => {
   useRedirectLogoutUsers("/login");
@@ -57,7 +59,7 @@ const HHome = () => {
         link2="Reservation"
         href2="/hotel manager/see-reservation"
       />
-      <div className="max-w-4xl mt-20 mx-auto mt-10 p-6 bg-gray-100 text-gray-800 rounded-md shadow-md">
+      <div className="max-w-4xl mt-20 mx-auto p-6 bg-gray-100 text-gray-800 rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">My Rooms</h2>
         <div className="space-y-6">
           {rooms.length > 0 ? (
@@ -82,15 +84,17 @@ const HHome = () => {
                 <div className="flex space-x-4">
                   <button
                     onClick={() => handleEdit(room._id)}
-                    className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors"
+                    className="py-2 px-4 bg-[#FFBB02] text-white rounded hover:bg-[#B46617] transition-colors flex items-center space-x-2"
                   >
-                    Edit
+                    <FontAwesomeIcon icon={faEdit} />
+                    <span>Edit</span>
                   </button>
                   <button
                     onClick={() => handleDelete(room._id)}
-                    className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-700 transition-colors"
+                    className="py-2 px-4 bg-red-700 text-white rounded hover:bg-red-900 transition-colors flex items-center space-x-2"
                   >
-                    Delete
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                    <span>Delete</span>
                   </button>
                 </div>
               </div>

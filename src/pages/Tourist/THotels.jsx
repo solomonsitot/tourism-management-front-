@@ -15,7 +15,6 @@ function THotels() {
   useRedirectLogoutUsers("/login");
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-  const [stat, setStatus] = useState(true);
   const [hotels, setHotels] = useState([]);
   const [key, setKey] = useState("");
   const navigate = useNavigate();
@@ -40,9 +39,8 @@ function THotels() {
         href3="/tourist/see-hotels"
         link4="Tours"
         href4="/tourist/tours"
-        // setting={contact}
-        // menu={menu}
-        // stat={stat}
+        link5="Shops"
+        href5="/tourist/see-shops"
       />
       <div className="w-full mt-20 text-center my-8">
         <h1 className="text-center text-4xl font-semibold">All Hotels</h1>

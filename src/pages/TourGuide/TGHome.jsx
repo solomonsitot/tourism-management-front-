@@ -68,7 +68,7 @@ function TGHome() {
         link2="Subscriptions"
         href2="/tour guide/see-subscriptions"
       />
-      <div className="max-w-6xl mt-20 mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
+      <div className="max-w-6xl mt-20 mx-auto p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-green-950">
           My Tour Packages
         </h2>
@@ -77,7 +77,7 @@ function TGHome() {
             tours.map((tour) => (
               <div
                 key={tour._id}
-                className="bg-green-950 text-white p-4 rounded-md shadow-md relative"
+                className="text-green-950 bg-gray-100 p-4 rounded-md shadow-2xl shadow-black relative"
               >
                 {tour.image && tour.image.length > 0 && (
                   <div className="mb-4">
@@ -90,22 +90,22 @@ function TGHome() {
                 )}
                 <h3 className="text-xl font-bold mb-2">{tour.package_name}</h3>
                 <div className="mb-2 h-20 overflow-y-auto">
-                  <FontAwesomeIcon icon={faBox} className="mr-2 text-gold" />
+                  <FontAwesomeIcon icon={faBox} className="mr-2 text-amber-700" />
                   <span>{tour.package_description}</span>
                 </div>
                 <div className="mb-2">
                   <FontAwesomeIcon
                     icon={faDollarSign}
-                    className="mr-2 text-gold"
+                    className="mr-2 text-amber-700"
                   />
                   <span>${tour.package_price}</span>
                 </div>
                 <div className="mb-2">
-                  <FontAwesomeIcon icon={faUsers} className="mr-2 text-gold" />
+                  <FontAwesomeIcon icon={faUsers} className="mr-2 text-amber-700" />
                   <span>Spaces Left: {tour.space_left}</span>
                 </div>
                 <div className="mb-2">
-                  <FontAwesomeIcon icon={faUser} className="mr-2 text-gold" />
+                  <FontAwesomeIcon icon={faUser} className="mr-2 text-amber-700" />
                   <span>Total Spaces: {tour.total_space}</span>
                 </div>
                 <div className="absolute bottom-4 right-4 space-x-2">

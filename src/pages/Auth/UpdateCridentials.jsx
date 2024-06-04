@@ -76,6 +76,9 @@ const UpdateCredentials = () => {
       });
       console.log(response);
       toast.success("User data updated successfully");
+      setTimeout(() => {
+        window.history.back();
+      }, 3000);
     } catch (error) {
       toast.error("Failed to update user data");
       console.error(error);
@@ -89,13 +92,16 @@ const UpdateCredentials = () => {
   return (
     <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
       <ToastContainer />
-      <h2 className="text-2xl font-bold text-center mb-6">Update User Credentials</h2>
+      <h2 className="text-2xl font-bold text-center mb-6">
+        Update User Credentials
+      </h2>
       <form className="space-y-4">
         {isTourist ? (
           <>
             <div className="form-group">
               <label className="flex items-center">
-                <FontAwesomeIcon icon={faPassport} className="mr-2" /> Passport ID
+                <FontAwesomeIcon icon={faPassport} className="mr-2" /> Passport
+                ID
               </label>
               <input
                 type="text"
@@ -122,7 +128,8 @@ const UpdateCredentials = () => {
           <>
             <div className="form-group">
               <label className="flex items-center">
-                <FontAwesomeIcon icon={faBuilding} className="mr-2" /> Company Name
+                <FontAwesomeIcon icon={faBuilding} className="mr-2" /> Company
+                Name
               </label>
               <input
                 type="text"
@@ -143,7 +150,8 @@ const UpdateCredentials = () => {
             </div>
             <div className="form-group">
               <label className="flex items-center">
-                <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" /> Address
+                <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />{" "}
+                Address
               </label>
               <input
                 type="text"

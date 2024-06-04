@@ -50,6 +50,8 @@ function TTourDetail() {
         href3="/tourist/see-hotels"
         link4="Tours"
         href4="/tourist/tours"
+        link5="Shops"
+        href5="/tourist/see-shops"
       />
       <div className="p-3 h-screen overflow-y-scroll bg-gray-100">
         <div className="w-11/12 mx-auto bg-white p-5 rounded shadow">

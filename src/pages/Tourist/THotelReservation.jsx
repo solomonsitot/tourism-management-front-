@@ -15,25 +15,53 @@ function THotelReservation() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(0);
   const [room, setHotelRoom] = useState([]);
+  const [days, setDays] = useState(0);
   const [results, setResult] = useState([]);
   const { rid } = useParams();
+
+  const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+
   const info = {
     rid: rid,
     quantity: amount,
     from: from,
     to: to,
+    days: days,
   };
 
   useEffect(() => {
     async function fetchRoom() {
       const result = await axios.get(`${BACKEND_URL}/rooms/get-single/${rid}`);
       setHotelRoom(result.data);
-      console.log(result.data)
+      console.log(result.data);
     }
     fetchRoom();
   }, [rid]);
+
+  useEffect(() => {
+    if (from && to) {
+      const fromDate = new Date(from);
+      const toDate = new Date(to);
+      const timeDiff = toDate - fromDate;
+      const daysDiff = timeDiff / (1000 * 3600 * 24); // Convert milliseconds to days
+      setDays(daysDiff);
+    }
+  }, [from, to]);
+
+  const calculateTotalPrice = () => {
+    return amount * room.room_price * days;
+  };
+
+  const handleDateChange = (e, setDate) => {
+    const selectedDate = e.target.value;
+    if (selectedDate >= today) {
+      setDate(selectedDate);
+    } else {
+      alert("Please select a date from today onwards.");
+    }
+  };
 
   async function reserveRoom(e) {
     e.preventDefault();
@@ -71,6 +99,8 @@ function THotelReservation() {
         href3="/tourist/see-hotels"
         link4="Tours"
         href4="/tourist/tours"
+        link5="Shops"
+        href5="/tourist/see-shops"
       />
       <div className="w-11/12 mt-20 mx-auto mt-8">
         <p className="text-3xl font-bold mb-6">Reservation</p>
@@ -123,7 +153,9 @@ function THotelReservation() {
                 id="from"
                 className="w-full p-2 border rounded mb-2"
                 type="date"
-                onChange={(e) => setFrom(e.target.value)}
+                min={today}
+                value={from}
+                onChange={(e) => handleDateChange(e, setFrom)}
               />
             </div>
             <div className="mb-4">
@@ -134,13 +166,15 @@ function THotelReservation() {
                 id="to"
                 className="w-full p-2 border rounded mb-2"
                 type="date"
-                onChange={(e) => setTo(e.target.value)}
+                min={from || today}
+                value={to}
+                onChange={(e) => handleDateChange(e, setTo)}
               />
             </div>
             <div className="mb-4">
               <label className="block mb-2">Your Total will be:</label>
               <p className="text-right text-xl">
-                {amount * room.room_price} Birr
+                {from && to ? calculateTotalPrice() : 0} Birr
               </p>
             </div>
             <button

@@ -90,10 +90,9 @@ function AUsers() {
         href1="/admin/add-destination"
         link2="Blogs"
         href2="/admin/add-blog"
-        link3="Users"
-        href3="/admin/manage-user"
+
       />
-      <div className="pt-20  overflow-y-scroll flex flex-col items-center justify-center bg-gradient-to-r from-green-800 to-green-600">
+      <div className="pt-20  overflow-y-scroll flex flex-col items-center justify-center bg-white">
         <div className="bg-white p-4 md:p-8 rounded-lg shadow-lg w-full max-w-4xl">
           <h1 className="text-2xl md:text-3xl font-bold mb-4 text-green-900">
             Users List

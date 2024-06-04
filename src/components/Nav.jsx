@@ -44,6 +44,9 @@ function Nav(props) {
     {
       href: props.href4,
       link: props.link4,
+    },    {
+      href: props.href5,
+      link: props.link5,
     },
   ];
 
@@ -62,7 +65,7 @@ function Nav(props) {
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-between  p-4 pt-6 bg-white shadow-md">
+      <div className="fixed top-0 left-0 right-0 z-[10000] flex justify-between  p-4 pt-6 bg-white shadow-md">
         <div className="text-green-950">
           <a href={props.href0}>
             <h2 className="text-5xl font-bold">TripMate</h2>

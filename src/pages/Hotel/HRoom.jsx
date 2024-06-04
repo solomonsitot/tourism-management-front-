@@ -4,6 +4,9 @@ import Nav from "../../components/Nav";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import "react-toastify/dist/ReactToastify.css";
 
 const HRoom = () => {
   useRedirectLogoutUsers("/login");
@@ -15,6 +18,7 @@ const HRoom = () => {
   const [roomDescription, setRoomDescription] = useState("");
   const [roomImages, setRoomImages] = useState([null, null, null]);
   const [imagePreviews, setImagePreviews] = useState([null, null, null]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleImageChange = (index, event) => {
@@ -28,6 +32,7 @@ const HRoom = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("room_name", roomName);
@@ -49,13 +54,19 @@ const HRoom = () => {
           },
         }
       );
-      toast(response.data.message);
+      toast.success(response.data.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
       setTimeout(() => {
         navigate("/hotel manager");
       }, 3000);
     } catch (error) {
       console.error("Error creating room:", error);
-      toast.error("Error creating room: " + error.message);
+      toast.error("Error creating room: " + error.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,112 +83,126 @@ const HRoom = () => {
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
           Create a New Room
         </h1>
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white text-gray-900 rounded-lg shadow-lg p-6 w-full max-w-lg space-y-6"
-        >
-          <div>
-            <label
-              className="block text-lg font-semibold mb-2"
-              htmlFor="roomName"
-            >
-              Room Name
-            </label>
-            <input
-              type="text"
-              id="roomName"
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              required
-            />
-          </div>
-          <div className="flex space-x-4">
-            <div className="flex-1">
+        <div className="bg-white text-gray-900 rounded-lg shadow-lg shadow-gray-400 p-6 w-full max-w-4xl flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+          <form onSubmit={handleSubmit} className="w-full lg:w-1/2 space-y-6">
+            <div>
               <label
                 className="block text-lg font-semibold mb-2"
-                htmlFor="roomPrice"
+                htmlFor="roomName"
               >
-                Room Price
+                Room Name
               </label>
               <input
-                type="number"
-                id="roomPrice"
-                value={roomPrice}
-                onChange={(e) => setRoomPrice(e.target.value)}
-                className="w-full px-3 py-2 border rounded"
+                type="text"
+                id="roomName"
+                value={roomName}
+                onChange={(e) => setRoomName(e.target.value)}
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />
             </div>
-            <div className="flex-1">
-              <label
-                className="block text-lg font-semibold mb-2"
-                htmlFor="roomAmount"
-              >
-                Room Amount
-              </label>
-              <input
-                type="number"
-                id="roomAmount"
-                value={roomAmount}
-                onChange={(e) => setRoomAmount(e.target.value)}
-                className="w-full px-3 py-2 border rounded"
-                required
-              />
-            </div>
-          </div>
-          <div>
-            <label
-              className="block text-lg font-semibold mb-2"
-              htmlFor="roomDescription"
-            >
-              Room Description
-            </label>
-            <textarea
-              id="roomDescription"
-              value={roomDescription}
-              onChange={(e) => setRoomDescription(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              required
-            ></textarea>
-          </div>
-          <div>
-            <label className="block text-lg font-semibold mb-2">
-              Room Images
-            </label>
-            {[0, 1, 2].map((index) => (
-              <div key={index} className="mb-4">
+            <div className="flex space-x-4">
+              <div className="flex-1">
+                <label
+                  className="block text-lg font-semibold mb-2"
+                  htmlFor="roomPrice"
+                >
+                  Room Price
+                </label>
                 <input
-                  type="file"
-                  id={`file-input-${index}`}
-                  className="hidden"
-                  onChange={(event) => handleImageChange(index, event)}
-                  accept="image/*"
+                  type="number"
+                  id="roomPrice"
+                  value={roomPrice}
+                  onChange={(e) => setRoomPrice(e.target.value)}
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                   required
                 />
-                <label
-                  htmlFor={`file-input-${index}`}
-                  className="w-full bg-blue-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-blue-700 transition-colors"
-                >
-                  {roomImages[index] ? roomImages[index].name : `Choose Image ${index + 1}`}
-                </label>
-                {imagePreviews[index] && (
-                  <img
-                    src={imagePreviews[index]}
-                    alt={`Preview ${index + 1}`}
-                    className="w-full h-48 object-cover mt-2 rounded"
-                  />
-                )}
               </div>
-            ))}
+              <div className="flex-1">
+                <label
+                  className="block text-lg font-semibold mb-2"
+                  htmlFor="roomAmount"
+                >
+                  Room Amount
+                </label>
+                <input
+                  type="number"
+                  id="roomAmount"
+                  value={roomAmount}
+                  onChange={(e) => setRoomAmount(e.target.value)}
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                className="block text-lg font-semibold mb-2"
+                htmlFor="roomDescription"
+              >
+                Room Description
+              </label>
+              <textarea
+                id="roomDescription"
+                value={roomDescription}
+                onChange={(e) => setRoomDescription(e.target.value)}
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              ></textarea>
+            </div>
+            <div>
+              <label className="block text-lg font-semibold mb-2">
+                Room Images
+              </label>
+              {[0, 1, 2].map((index) => (
+                <div key={index} className="mb-4">
+                  <input
+                    type="file"
+                    id={`file-input-${index}`}
+                    className="hidden"
+                    onChange={(event) => handleImageChange(index, event)}
+                    accept="image/*"
+                    required
+                  />
+                  <label
+                    htmlFor={`file-input-${index}`}
+                    className="w-full text-green-950 border-green-950 border-2 px-4 py-2 rounded cursor-pointer hover:bg-green-950 hover:text-white transition-colors flex items-center justify-center space-x-2"
+                  >
+                    <FontAwesomeIcon icon={faCamera} />
+                    <span>
+                      {roomImages[index]
+                        ? roomImages[index].name
+                        : `Choose Image ${index + 1}`}
+                    </span>
+                  </label>
+                </div>
+              ))}
+            </div>
+            <button
+              type="submit"
+              className={`w-full bg-green-950 text-white px-4 py-2 rounded hover:bg-green-800 transition-colors flex items-center justify-center space-x-2 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
+            >
+              <FontAwesomeIcon icon={faCheckCircle} />
+              <span>{loading ? "Creating..." : "Create Room"}</span>
+            </button>
+          </form>
+          <div className="w-full border-l-4 p-2 lg:w-1/2 flex flex-col space-y-4">
+            {imagePreviews.map(
+              (preview, index) =>
+                preview && (
+                  <img
+                    key={index}
+                    src={preview}
+                    alt={`Preview ${index + 1}`}
+                    className="w-full h-48 object-cover rounded transition-all duration-300 hover:scale-105"
+                  />
+                )
+            )}
           </div>
-          <button
-            type="submit"
-            className="w-full bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800 transition-colors"
-          >
-            Create Room
-          </button>
-        </form>
+        </div>
       </div>
     </>
   );

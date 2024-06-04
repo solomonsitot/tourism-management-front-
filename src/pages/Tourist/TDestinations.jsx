@@ -8,6 +8,11 @@ import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
+import {
+  faInfoCircle,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Fix marker icons
 delete L.Icon.Default.prototype._getIconUrl;
@@ -56,11 +61,11 @@ const TDestinations = () => {
         href3="/tourist/see-hotels"
         link4="Tours"
         href4="/tourist/tours"
+        link5="Shops"
+        href5="/tourist/see-shops"
       />
       <div className="min-h-screen mt-20 bg-white text-green-950 flex flex-col items-center p-4">
-        <h1 className="text-4xl font-bold mb-8">
-          Tourist Destinations
-        </h1>
+        <h1 className="text-4xl font-bold mb-8">Tourist Destinations</h1>
         <div className="grid grid-cols-1 gap-8 w-full max-w-6xl mb-8">
           {destinations.map((destination) => (
             <div
@@ -82,6 +87,29 @@ const TDestinations = () => {
                   style={{ maxHeight: "150px" }}
                 >
                   {destination.dest_description}
+                </div>
+                <div className="flex justify-around items-center">
+                  <a
+                    href={`https://maps.google.com/?q=${destination.dest_location.lat},${destination.dest_location.lng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-950  border-green-950 text-center border-[1px] px-5 py-2 rounded-xl hover:bg-green-950 hover:text-white"
+                  >
+                    <FontAwesomeIcon icon={faMapMarkerAlt} size="2x" />
+                    <p className="">See on google map</p>
+                  </a>
+                  <a
+                    href={`https://en.wikipedia.org/wiki/${destination.dest_name.replace(
+                      / /g,
+                      "_"
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-950 text-center border-green-950 border-[1px] px-5 py-2 rounded-xl hover:bg-green-950 hover:text-white"
+                  >
+                    <FontAwesomeIcon icon={faInfoCircle} size="2x" />
+                    <p>Read Further</p>
+                  </a>
                 </div>
               </div>
               <div className="lg:w-1/2 lg:pl-4 flex-grow">

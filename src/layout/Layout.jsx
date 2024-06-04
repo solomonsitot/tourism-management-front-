@@ -39,6 +39,8 @@ import TShopPurchasement from "../pages/Tourist/TShopPurchasement";
 import TShopDetail from "../pages/Tourist/TShopDetail";
 import TShops from "../pages/Tourist/TShops";
 import SideNav from "../pages/Admin/SideNav";
+import ADestinationList from "../pages/Admin/ADestinationList";
+import ABlogList from "../pages/Admin/ABlogList";
 
 function Layout() {
   return (
@@ -92,6 +94,8 @@ function AdminLayout() {
           <Route path="/" element={<AHome />} />
           <Route path="add-blog" element={<ABlogs />} />
           <Route path="add-destination" element={<ADestinations />} />
+          <Route path="all-destinations" element={<ADestinationList />} />
+          <Route path="all-blogs" element={<ABlogList />} />
           <Route path="manage-user" element={<AUsers />} />
           <Route path="blogs/edit/:id?" element={<ABlogEdit />} />
           <Route path="destinations/edit/:id?" element={<ADestinationEdit />} />

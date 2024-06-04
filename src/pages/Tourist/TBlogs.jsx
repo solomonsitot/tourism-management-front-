@@ -39,9 +39,8 @@ function TBlogs() {
         href3="/tourist/see-hotels"
         link4="Tours"
         href4="/tourist/tours"
-        // setting={contact}
-        // menu={menu}
-        // stat={stat}
+        link5="Shops"
+        href5="/tourist/see-shops"
       />
       <div className="w-full mt-20 text-center">
         <h1 className="text-center text-4xl font-semibold">All Posts</h1>

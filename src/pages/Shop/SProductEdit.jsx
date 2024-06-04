@@ -81,7 +81,7 @@ function SProductEdit() {
       );
       toast.success(response.data.message);
       setTimeout(() => {
-        navigate("/hotel manager");
+        navigate("/shop owner");
       }, 3000);
     } catch (error) {
       toast.error("Error updating product: " + error.message);

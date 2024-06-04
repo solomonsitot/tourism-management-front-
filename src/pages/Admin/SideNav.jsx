@@ -32,7 +32,7 @@ function SideNav() {
     }
   }
   return (
-    <div className="bg-gray-800 mt-20 h-[90vh] z-50 text-white flex flex-col float-start  lg:mt-[15vh]  transition-all duration-300 w-16 sm:w-64">
+    <div className="bg-gray-800 mt-20 h-[90vh] z-50 text-white flex flex-col float-start  lg:mt-[15vh]  transition-all duration-300 w-16 md:w-64">
       <div className="flex-grow overflow-y-auto">
         <ul className="space-y-2 p-4">
           <li>
@@ -42,36 +42,36 @@ function SideNav() {
                 location.pathname === "/admin"
                   ? activeClass
                   : "hover:bg-gray-700"
-              } flex items-center justify-center sm:justify-start`}
+              } flex items-center justify-center md:justify-start`}
             >
-              <FontAwesomeIcon icon={faHome} className="mr-0 sm:mr-2" />
-              <span className="hidden sm:inline">Home</span>
+              <FontAwesomeIcon icon={faHome} className="mr-0 md:mr-2" />
+              <span className="hidden md:inline">Home</span>
             </Link>
           </li>
           <li>
             <Link
-              to="/admin/add-blog"
+              to="/admin/all-blogs"
               className={`block py-2 px-4 rounded-lg ${
-                location.pathname === "/admin/add-blog"
+                location.pathname === "/admin/all-blogs"
                   ? activeClass
                   : "hover:bg-gray-700"
-              } flex items-center justify-center sm:justify-start`}
+              } flex items-center justify-center md:justify-start`}
             >
-              <FontAwesomeIcon icon={faBlog} className="mr-0 sm:mr-2" />
-              <span className="hidden sm:inline">Blogs</span>
+              <FontAwesomeIcon icon={faBlog} className="mr-0 md:mr-2" />
+              <span className="hidden md:inline">Blogs</span>
             </Link>
           </li>
           <li>
             <Link
-              to="/admin/add-destination"
+              to="/admin/all-destinations"
               className={`block py-2 px-4 rounded-lg ${
-                location.pathname === "/admin/add-destination"
+                location.pathname === "/admin/all-destinations"
                   ? activeClass
                   : "hover:bg-gray-700"
-              } flex items-center justify-center sm:justify-start`}
+              } flex items-center justify-center md:justify-start`}
             >
-              <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-0 sm:mr-2" />
-              <span className="hidden sm:inline">Destinations</span>
+              <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-0 md:mr-2" />
+              <span className="hidden md:inline">Destinations</span>
             </Link>
           </li>
           <li>
@@ -81,19 +81,19 @@ function SideNav() {
                 location.pathname === "/admin/manage-user"
                   ? activeClass
                   : "hover:bg-gray-700"
-              } flex items-center justify-center sm:justify-start`}
+              } flex items-center justify-center md:justify-start`}
             >
-              <FontAwesomeIcon icon={faUsers} className="mr-0 sm:mr-2" />
-              <span className="hidden sm:inline">Users</span>
+              <FontAwesomeIcon icon={faUsers} className="mr-0 md:mr-2" />
+              <span className="hidden md:inline">Users</span>
             </Link>
           </li>
           <li
             className={` py-2 px-4 rounded-lg hover:bg-red-700
-            flex items-center justify-center sm:justify-start`}
+            flex items-center justify-center md:justify-start`}
             onClick={logout}
           >
-            <FontAwesomeIcon icon={faSignOutAlt} className="mr-0 sm:mr-2" />
-            <span className="hidden sm:inline">logout</span>
+            <FontAwesomeIcon icon={faSignOutAlt} className="mr-0 md:mr-2" />
+            <span className="hidden md:inline">logout</span>
           </li>
         </ul>
       </div>

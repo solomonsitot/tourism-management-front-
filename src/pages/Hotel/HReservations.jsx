@@ -2,12 +2,22 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Nav from "../../components/Nav";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faCalendar,
+  faBed,
+  faCheck,
+  faTimes,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 
 function HReservations() {
   useRedirectLogoutUsers("/login");
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [reservations, setReservations] = useState([]);
+
   useEffect(() => {
     async function fetchReservations() {
       try {
@@ -33,45 +43,79 @@ function HReservations() {
         link2="Reservation"
         href2="/hotel manager/see-reservation"
       />
-      <div className="min-h-screen mt-20 bg-green-950 text-white p-8">
-        <h1 className="text-4xl font-bold text-center mb-8">Reservations</h1>
+      <div className="min-h-screen mt-20 bg-gray-100 text-gray-900 p-8">
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+          Reservations
+        </h1>
         {reservations.length === 0 ? (
           <p className="text-xl text-center">No reservations found.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reservations.map((reservation) => (
               <div
-                key={reservation._id} // Assuming '_id' is a unique identifier
-                className="bg-green-900 rounded-lg p-6 shadow-lg"
+                key={reservation._id}
+                className="bg-white rounded-lg p-6 shadow-lg transition transform hover:scale-105"
               >
-                <h2 className="text-xl font-bold mb-4">
+                <h2 className="text-2xl font-bold mb-4 text-blue-600">
                   {reservation.room.room_name}
-                </h2>{" "}
-                {/* Assuming room has a 'name' field */}
-                <p className="text-lg mb-2">
+                </h2>
+                <p className="text-lg mb-2 flex items-center">
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className="mr-2 text-green-950"
+                  />
                   <span className="font-semibold">Customer:</span>{" "}
-                  {reservation.customer.full_name}{" "}
-                  {/* Assuming customer has a 'name' field */}
+                  {reservation.customer.full_name}
+                </p>{" "}
+                <p className="text-lg mb-2 flex items-center">
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    className="mr-2 text-green-950"
+                  />
+                  <span className="font-semibold">Email:</span>{" "}
+                  {reservation.customer.email}
                 </p>
-                <p className="text-lg mb-2">
+                <p className="text-lg mb-2 flex items-center">
+                  <FontAwesomeIcon
+                    icon={faCalendar}
+                    className="mr-2 text-green-950"
+                  />
                   <span className="font-semibold">From:</span>{" "}
                   {new Date(reservation.from).toLocaleDateString()}
                 </p>
-                <p className="text-lg mb-2">
+                <p className="text-lg mb-2 flex items-center">
+                  <FontAwesomeIcon
+                    icon={faCalendar}
+                    className="mr-2 text-green-950"
+                  />
                   <span className="font-semibold">To:</span>{" "}
                   {new Date(reservation.to).toLocaleDateString()}
                 </p>
-                <p className="text-lg mb-2">
+                <p className="text-lg mb-2 flex items-center">
+                  <FontAwesomeIcon
+                    icon={faBed}
+                    className="mr-2 text-green-950"
+                  />
                   <span className="font-semibold">Quantity:</span>{" "}
                   {reservation.quantity}
                 </p>
-                <p className="text-lg mb-2">
-                  <span className="font-semibold">Status:</span>{" "}
+                <p className="text-lg mb-2 flex items-center">
+                  <FontAwesomeIcon
+                    icon={
+                      reservation.status === "completed" ? faCheck : faTimes
+                    }
+                    className={`mr-2 ${
+                      reservation.status === "completed"
+                        ? "text-green-500 "
+                        : "text-red-500"
+                    }`}
+                  />
+                  <span className="font-semibold">Status :</span>{" "}
                   <span
-                    className={`px-2 py-1 rounded-full ${
-                      reservation.status === "Confirmed"
-                        ? "bg-green-500 text-white"
-                        : "bg-red-500 text-white"
+                    className={`px-2 py-1 rounded-md ${
+                      reservation.status === "completed"
+                        ? "bg-green-100 text-green-800 px-3 ml-2"
+                        : "bg-red-100 text-red-800 px-3 ml-2"
                     }`}
                   >
                     {reservation.status}

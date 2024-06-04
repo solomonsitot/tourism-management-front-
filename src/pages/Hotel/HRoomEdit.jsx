@@ -4,6 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Nav from "../../components/Nav";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import "react-toastify/dist/ReactToastify.css";
 
 const HRoomEdit = () => {
   useRedirectLogoutUsers("/login");
@@ -14,7 +17,8 @@ const HRoomEdit = () => {
   const [roomAmount, setRoomAmount] = useState("");
   const [roomDescription, setRoomDescription] = useState("");
   const [roomImages, setRoomImages] = useState([null, null, null]);
-  const [currentImages, setCurrentImages] = useState(["", "", ""]);
+  const [currentImages, setCurrentImages] = useState([null, null, null]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -42,20 +46,16 @@ const HRoomEdit = () => {
 
   const handleImageChange = (index, event) => {
     const files = [...roomImages];
+    const previews = [...currentImages];
     files[index] = event.target.files[0];
+    previews[index] = URL.createObjectURL(event.target.files[0]);
     setRoomImages(files);
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const newCurrentImages = [...currentImages];
-      newCurrentImages[index] = e.target.result;
-      setCurrentImages(newCurrentImages);
-    };
-    reader.readAsDataURL(event.target.files[0]);
+    setCurrentImages(previews);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("room_name", roomName);
@@ -72,19 +72,25 @@ const HRoomEdit = () => {
       const response = await axios.put(
         `${BACKEND_URL}/rooms/update/${id}`,
         formData,
-        { withCredentials: true },
         {
+          withCredentials: true,
           headers: {
             "Content-Type": "multipart/form-data",
           },
         }
       );
-      toast.success(response.data.message);
+      toast.success(response.data.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
       setTimeout(() => {
         navigate("/hotel manager");
       }, 3000);
     } catch (error) {
-      toast.error("Error updating room: " + error.message);
+      toast.error("Error updating room: " + error.message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,114 +102,130 @@ const HRoomEdit = () => {
         href1="/hotel manager/add-room"
         link2="Reservation"
         href2="/hotel manager/see-reservation"
-        // link3="Hotels"
-        // href3="/hotel manager/see-hotels"
-        // link4="Tours"
-        // href4="/hotel manager/tours"
-        // setting={contact}
-        // menu={menu}
-        // stat={stat}
       />
-      <div className="min-h-screen mt-20 bg-green-950 text-white p-4 flex flex-col items-center">
-        <h1 className="text-4xl font-bold text-center text-golden mb-8">
+      <div className="min-h-screen mt-20 bg-gray-100 text-gray-800 p-4 flex flex-col items-center">
+        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
           Edit Room
         </h1>
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white text-green-950 rounded-lg shadow-lg p-6 w-full max-w-lg space-y-6"
-        >
-          <div>
-            <label
-              className="block text-lg font-semibold mb-2"
-              htmlFor="roomName"
+        <div className="bg-white text-gray-900 rounded-lg shadow-lg shadow-gray-400 p-6 w-full max-w-4xl flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+          <form onSubmit={handleSubmit} className="w-full lg:w-1/2 space-y-6">
+            <div>
+              <label
+                className="block text-lg font-semibold mb-2"
+                htmlFor="roomName"
+              >
+                Room Name
+              </label>
+              <input
+                type="text"
+                id="roomName"
+                value={roomName}
+                onChange={(e) => setRoomName(e.target.value)}
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+            <div className="flex space-x-4">
+              <div className="flex-1">
+                <label
+                  className="block text-lg font-semibold mb-2"
+                  htmlFor="roomPrice"
+                >
+                  Room Price
+                </label>
+                <input
+                  type="number"
+                  id="roomPrice"
+                  value={roomPrice}
+                  onChange={(e) => setRoomPrice(e.target.value)}
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              <div className="flex-1">
+                <label
+                  className="block text-lg font-semibold mb-2"
+                  htmlFor="roomAmount"
+                >
+                  Room Amount
+                </label>
+                <input
+                  type="number"
+                  id="roomAmount"
+                  value={roomAmount}
+                  onChange={(e) => setRoomAmount(e.target.value)}
+                  className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                className="block text-lg font-semibold mb-2"
+                htmlFor="roomDescription"
+              >
+                Room Description
+              </label>
+              <textarea
+                id="roomDescription"
+                value={roomDescription}
+                onChange={(e) => setRoomDescription(e.target.value)}
+                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              ></textarea>
+            </div>
+            <div>
+              <label className="block text-lg font-semibold mb-2">
+                Room Images
+              </label>
+              {roomImages.map((_, index) => (
+                <div key={index} className="mb-4">
+                  <input
+                    type="file"
+                    id={`file-input-${index}`}
+                    className="hidden"
+                    onChange={(event) => handleImageChange(index, event)}
+                    accept="image/*"
+                  />
+                  <label
+                    htmlFor={`file-input-${index}`}
+                    className="w-full bg-white px-4 py-2 rounded-md border-green-950 border-2 cursor-pointer hover:bg-green-950 hover:text-white transition-colors flex items-center justify-center space-x-2"
+                  >
+                    <FontAwesomeIcon icon={faCamera} />
+                    <span>
+                      {roomImages[index]
+                        ? roomImages[index].name
+                        : `Choose Image ${index + 1}`}
+                    </span>
+                  </label>
+                </div>
+              ))}
+            </div>
+            <button
+              type="submit"
+              className={`w-full bg-green-950 text-white px-4 py-2 rounded hover:bg-green-800 transition-colors flex items-center justify-center space-x-2 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              disabled={loading}
             >
-              Room Name
-            </label>
-            <input
-              type="text"
-              id="roomName"
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              required
-            />
-          </div>
-          <div>
-            <label
-              className="block text-lg font-semibold mb-2"
-              htmlFor="roomPrice"
-            >
-              Room Price
-            </label>
-            <input
-              type="number"
-              id="roomPrice"
-              value={roomPrice}
-              onChange={(e) => setRoomPrice(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              required
-            />
-          </div>
-          <div>
-            <label
-              className="block text-lg font-semibold mb-2"
-              htmlFor="roomAmount"
-            >
-              Room Amount
-            </label>
-            <input
-              type="number"
-              id="roomAmount"
-              value={roomAmount}
-              onChange={(e) => setRoomAmount(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              required
-            />
-          </div>
-          <div>
-            <label
-              className="block text-lg font-semibold mb-2"
-              htmlFor="roomDescription"
-            >
-              Room Description
-            </label>
-            <textarea
-              id="roomDescription"
-              value={roomDescription}
-              onChange={(e) => setRoomDescription(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-              required
-            ></textarea>
-          </div>
-          <div>
-            <label className="block text-lg font-semibold mb-2">
-              Room Images
-            </label>
+              <FontAwesomeIcon icon={faCheckCircle} />
+              <span>{loading ? "Updating..." : "Update Room"}</span>
+            </button>
+          </form>
+          <div className="w-full lg:w-1/2 flex flex-col space-y-4">
             {currentImages.map((img, index) => (
-              <div key={index} className="mb-4">
+              <div key={index} className="flex-1">
                 {img && (
                   <img
                     src={img}
                     alt={`Room Image ${index + 1}`}
-                    className="mb-2 w-full h-32 object-cover rounded"
+                    className="w-full h-32 object-cover rounded transition-all duration-300 hover:scale-105"
                   />
                 )}
-                <input
-                  type="file"
-                  onChange={(event) => handleImageChange(index, event)}
-                  className="w-full px-3 py-2 border rounded"
-                  accept="image/*"
-                />
               </div>
             ))}
           </div>
-          <button
-            type="submit"
-            className="w-full bg-golden text-white px-4 py-2 rounded hover:bg-yellow-600"
-          >
-            Update Room
-          </button>
-        </form>
+        </div>
       </div>
     </>
   );

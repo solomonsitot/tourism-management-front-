@@ -67,6 +67,8 @@ function THotelReservation() {
         href3="/tourist/see-hotels"
         link4="Tours"
         href4="/tourist/tours"
+        link5="Shops"
+        href5="/tourist/see-shops"
       />
       <div className="w-11/12 mx-auto mt-8">
         <p className="text-3xl font-bold mb-6">Subscription</p>
