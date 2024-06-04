@@ -21,7 +21,7 @@ function TShopDetail() {
   useEffect(() => {
     async function fetchShop() {
       const result = await axios.get(
-        `${BACKEND_URL}/user/get-single-hotel/${id}`
+        `${BACKEND_URL}/user/get-single-provider/${id}`
       );
       setShop(result.data);
     }

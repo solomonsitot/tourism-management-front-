@@ -23,7 +23,7 @@ function THotelDetail() {
   useEffect(() => {
     async function fetchHotel() {
       const result = await axios.get(
-        `${BACKEND_URL}/user/get-single-hotel/${id}`
+        `${BACKEND_URL}/user/get-single-provider/${id}`
       );
       setHotelObj(result.data);
     }

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCamera, faPhone, faIdCard, faBuilding, faFileAlt, faMapMarkerAlt, faFileImage, faFileContract, faUniversity, faUser, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
 
 function Cridential() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -42,7 +44,6 @@ function Cridential() {
           ? `${BACKEND_URL}/profile/tourist-credential/${id}`
           : `${BACKEND_URL}/profile/provider-credential/${id}`;
       const response = await axios.post(url, formDataToSend);
-      console.log(formDataToSend);
       if (response.data.message === "user signup successfully") {
         if (role === "tourist") {
           navigate(`/tourist`);
@@ -74,6 +75,7 @@ function Cridential() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label className="block text-lg font-medium text-gray-700">
+              <FontAwesomeIcon icon={faCamera} className="mr-2" />
               Profile Image
             </label>
             <input
@@ -87,6 +89,7 @@ function Cridential() {
             <>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faPhone} className="mr-2" />
                   Phone Number
                 </label>
                 <input
@@ -98,6 +101,7 @@ function Cridential() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faIdCard} className="mr-2" />
                   Passport ID
                 </label>
                 <input
@@ -112,6 +116,7 @@ function Cridential() {
             <>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faBuilding} className="mr-2" />
                   Company Name
                 </label>
                 <input
@@ -124,6 +129,7 @@ function Cridential() {
 
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faFileAlt} className="mr-2" />
                   Description
                 </label>
                 <textarea
@@ -134,6 +140,7 @@ function Cridential() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faMapMarkerAlt} className="mr-2" />
                   Address
                 </label>
                 <input
@@ -145,6 +152,7 @@ function Cridential() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faFileImage} className="mr-2" />
                   Image 1
                 </label>
                 <input
@@ -156,6 +164,7 @@ function Cridential() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faFileImage} className="mr-2" />
                   Image 2
                 </label>
                 <input
@@ -167,6 +176,7 @@ function Cridential() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faFileImage} className="mr-2" />
                   Image 3
                 </label>
                 <input
@@ -178,6 +188,7 @@ function Cridential() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faFileContract} className="mr-2" />
                   Business License
                 </label>
                 <input
@@ -189,17 +200,28 @@ function Cridential() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faUniversity} className="mr-2" />
                   Bank
                 </label>
-                <input
-                  type="text"
+                <select
                   name="bank"
                   onChange={handleChange}
                   className="mt-1 p-2 block w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                />
+                >
+                  <option value="">Select Bank</option>
+                  <option value="Awash Bank">Awash Bank</option>
+                  <option value="Bank of Abyssinia">Bank of Abyssinia</option>
+                  <option value="Commercial Bank of Ethiopia (CBE)">
+                    Commercial Bank of Ethiopia (CBE)
+                  </option>
+                  <option value="Dashen Bank">Dashen Bank</option>
+                  <option value="telebirr">telebirr</option>
+                  <option value="M-Pesa">M-Pesa</option>
+                </select>
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faUser} className="mr-2" />
                   Account Name
                 </label>
                 <input
@@ -211,6 +233,7 @@ function Cridential() {
               </div>
               <div>
                 <label className="block text-lg font-medium text-gray-700">
+                  <FontAwesomeIcon icon={faMoneyCheck} className="mr-2" />
                   Account Number
                 </label>
                 <input
