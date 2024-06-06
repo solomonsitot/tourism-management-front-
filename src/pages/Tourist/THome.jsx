@@ -20,7 +20,7 @@ import twitter from "../../assets/twitter.png";
 import arrow from "../../assets/arrow.png";
 import fourty from "../../assets/40 Spring.jpg";
 import contact from "../../assets/Contact.png";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
 import { useSelector } from "react-redux";
 import { selectId, selectRole } from "../../redux/features/auth/authSlice";
@@ -47,7 +47,7 @@ function THome() {
   const [key, setKey] = useState("");
   const [stat, setStatus] = useState(false);
   const [objects, setObject] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function searchDestination() {
       const response = await axios.get(
@@ -226,10 +226,20 @@ function THome() {
         </div>
         <div className="flex flex-col w-full md:w-1/2 gap-3">
           <div className="flex flex-col md:flex-row gap-3">
-            <div className="flex-1 bg-[#C0F4FF] rounded-2xl p-6 text-3xl font-bold text-green-950">
+            <div
+              className="flex-1 cursor-pointer bg-[#C0F4FF] rounded-2xl p-6 text-3xl font-bold text-green-950"
+              onClick={() => {
+                navigate("see-blogs");
+              }}
+            >
               Read our Blogs
             </div>
-            <div className="flex-1 bg-[#E1FECE] rounded-2xl p-6 text-3xl font-bold text-green-950">
+            <div
+              className="flex-1 cursor-pointer bg-[#E1FECE] rounded-2xl p-6 text-3xl font-bold text-green-950"
+              onClick={() => {
+                navigate("destinations");
+              }}
+            >
               Go to discovery
             </div>
           </div>

@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
 import ReactStars from "react-rating-stars-component";
+import Nav from "../../components/Nav";
 
 function THotelDetail() {
   useRedirectLogoutUsers("/login");
@@ -26,6 +27,7 @@ function THotelDetail() {
         `${BACKEND_URL}/user/get-single-provider/${id}`
       );
       setHotelObj(result.data);
+      // console.log(retsult.data);
     }
     fetchHotel();
 
@@ -54,7 +56,20 @@ function THotelDetail() {
   };
 
   return (
-    <div className="p-3 mt-20 h-screen overflow-y-scroll bg-gray-100">
+    <>
+      <Nav
+        href0="/tourist"
+        link1="Discover"
+        href1="/tourist/destinations"
+        link2="Blogs"
+        href2="/tourist/see-blogs"
+        link3="Hotels"
+        href3="/tourist/see-hotels"
+        link4="Tours"
+        href4="/tourist/tours"
+        link5="Shops"
+        href5="/tourist/see-shops"
+      />    <div className="p-3 mt-20 h-screen overflow-y-scroll bg-gray-100">
       <div className="w-11/12 mx-auto bg-white p-5 rounded shadow">
         <h1 className="font-bold text-3xl pt-3">
           {hotelObj.company_name} / {hotelObj.address}
@@ -141,7 +156,8 @@ function THotelDetail() {
           </div>
         </div>
       ))}
-    </div>
+      </div>
+      </>
   );
 }
 

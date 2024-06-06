@@ -41,18 +41,22 @@ import TShops from "../pages/Tourist/TShops";
 import SideNav from "../pages/Admin/SideNav";
 import ADestinationList from "../pages/Admin/ADestinationList";
 import ABlogList from "../pages/Admin/ABlogList";
+import VerificationDone from "../components/VerificationDone";
+import Home from "../pages/Auth/Home";
 
 function Layout() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Signup />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/signup" element={<Signup />} />
       <Route path="/cridentials/:role?/:id?" element={<Cridential />} />
       <Route path="/change-password" element={<ChangePassword />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password/:resetToken" element={<ResetPassword />} />
       <Route path="/update-cridential" element={<UpdateCridentials />} />
       <Route path="/thanks" element={<ThankYou />} />
+      <Route path="/verify-user/:verifyToken" element={<VerificationDone />} />
       <Route path="/tourist">
         <Route path="" element={<THome />} />
         <Route path="destinations" element={<TDestinations />} />

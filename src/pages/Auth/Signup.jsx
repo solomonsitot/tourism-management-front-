@@ -46,20 +46,21 @@ function Signup() {
         { withCredentials: true }
       );
       const data = response.data;
+      toast(response.data.message);
       await dispatch(SET_LOGIN(true));
       await dispatch(SET_NAME(data.body.full_name));
       await dispatch(SET_ROLE(data.body.role));
       await dispatch(SET_ID(data.body._id));
-      if (data.body && data.body.role) {
-        navigate(`/cridentials/${data.body.role}/${data.body._id}`);
-      } else {
-        toast.error(data.message);
-        setFullname("");
-        setEmail("");
-        setPassword("");
-        setRe_Password("");
-        setRole("");
-      }
+      // if (data.body && data.body.role) {
+      //   navigate(`/cridentials/${data.body.role}/${data.body._id}`);
+      // } else {
+      //   toast.error(data.message);
+      //   setFullname("");
+      //   setEmail("");
+      //   setPassword("");
+      //   setRe_Password("");
+      //   setRole("");
+      // }
     } catch (error) {
       console.log("Error:", error);
       toast.error("An error occurred during signup.");

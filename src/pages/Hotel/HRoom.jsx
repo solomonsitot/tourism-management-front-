@@ -54,17 +54,13 @@ const HRoom = () => {
           },
         }
       );
-      toast.success(response.data.message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.success(response.data.message);
       setTimeout(() => {
         navigate("/hotel manager");
       }, 3000);
     } catch (error) {
       console.error("Error creating room:", error);
-      toast.error("Error creating room: " + error.message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error("Error creating room: " + error.message);
     } finally {
       setLoading(false);
     }

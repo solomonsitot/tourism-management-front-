@@ -39,14 +39,14 @@ const UpdateCredentials = () => {
     const file = files[0];
     setUserData({ ...userData, [name]: file });
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setUserData((prevState) => ({
-        ...prevState,
-        [`${name}`]: reader.result,
-      }));
-    };
-    reader.readAsDataURL(file);
+    // const reader = new FileReader();
+    // reader.onloadend = () => {
+    //   setUserData((prevState) => ({
+    //     ...prevState,
+    //     [`${name}`]: reader.result,
+    //   }));
+    // };
+    // reader.readAsDataURL(file);
   };
 
   const handleSave = async () => {

@@ -119,7 +119,7 @@ function Login() {
               forgot password 
             </a>
              {" have No account "}
-            <a className="text-blue-500" href="/">
+            <a className="text-blue-500" href="/signup">
               SignUp
             </a>
           </p>

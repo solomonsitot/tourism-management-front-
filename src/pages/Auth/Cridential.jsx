@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faPhone, faIdCard, faBuilding, faFileAlt, faMapMarkerAlt, faFileImage, faFileContract, faUniversity, faUser, faMoneyCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCamera,
+  faPhone,
+  faIdCard,
+  faBuilding,
+  faFileAlt,
+  faMapMarkerAlt,
+  faFileImage,
+  faFileContract,
+  faUniversity,
+  faUser,
+  faMoneyCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Cridential() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
@@ -44,6 +56,7 @@ function Cridential() {
           ? `${BACKEND_URL}/profile/tourist-credential/${id}`
           : `${BACKEND_URL}/profile/provider-credential/${id}`;
       const response = await axios.post(url, formDataToSend);
+      console.log(response.data);
       if (response.data.message === "user signup successfully") {
         if (role === "tourist") {
           navigate(`/tourist`);

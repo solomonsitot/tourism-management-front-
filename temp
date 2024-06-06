@@ -252,3 +252,69 @@ function THome() {
 }
 
 export default THome;
+
+
+
+
+
+
+
+
+module.exports.signup = async (req, res) => {
+  try {
+    const { full_name, email, password, re_password, role } = req.body;
+    if (!full_name || !email || !password || !re_password || !role) {
+      return res.status(400).json({ message: "all fields are required" });
+    }
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Invalid email address" });
+    }
+    if (password != re_password) {
+      return res.status(400).json({ message: "password mismatch" });
+    }
+    let user = await User.findOne({ email: email });
+    if (user) {
+      return res.status(400).json({ message: "user already exists" });
+    }
+    user = new User(
+      _.pick(req.body, ["full_name", "email", "password", "role"])
+    );
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+    const token = await jwt.sign(
+      { id: user._id, role: user.role, status: user.verification_status },
+      process.env.PRIVATE_SECERET_TOKEN
+    );
+    await user.save();
+
+    const verifyUrl = `${process.env.FRONTEND_URL}/verify-user/${token}`;
+    const message = `
+    <h2>Hello ${user.full_name}</h2>
+    <p>Please use the url below to confirm your Email</p>  
+  
+    <a href=${verifyUrl} clicktracking=off>${verifyUrl}</a>
+  
+    <p>Regards...</p>
+    <p>Tripmate Team</p>
+  `;
+    const subject = "Account Verification Request";
+    const send_to = user.email;
+    console.log(send_to);
+    const sent_from = process.env.EMAIL_USER;
+    console.log(sent_from);
+
+    await sendEmail(subject, message, send_to, sent_from);
+    res
+      .cookie("token", token, {
+        path: "/",
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      })
+      .json({ body: user, success: true, message: "Verify Email Sent" })
+      .status(200);
+  } catch (err) {
+    console.log(err.message);
+    res.json({ message: err.message });
+  }
+};

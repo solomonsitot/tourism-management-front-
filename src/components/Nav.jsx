@@ -44,7 +44,8 @@ function Nav(props) {
     {
       href: props.href4,
       link: props.link4,
-    },    {
+    },
+    {
       href: props.href5,
       link: props.link5,
     },
@@ -57,7 +58,7 @@ function Nav(props) {
       });
       console.log(response);
       dispatch(SET_LOGIN(false));
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       toast(err.message);
     }

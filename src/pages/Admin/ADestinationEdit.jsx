@@ -71,7 +71,7 @@ function ADestinationEdit() {
     } catch (error) {
       console.error(
         "Error uploading destination:",
-        error.response ? error.response.data : error
+        error.response ? error.response.data : error.message
       );
       toast("Failed to update destination. Please try again.");
     }
