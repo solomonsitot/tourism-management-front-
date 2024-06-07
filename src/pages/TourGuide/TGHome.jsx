@@ -24,13 +24,11 @@ function TGHome() {
   useEffect(() => {
     async function fetchTours() {
       try {
-        const result = await axios.get(
-          `${BACKEND_URL}/tours/get-my-tours`,
-          {
-            withCredentials: true,
-          }
-        );
-        setTours(result.data.message);
+        const result = await axios.get(`${BACKEND_URL}/tours/get-my-tours`, {
+          withCredentials: true,
+        });
+        console.log(result.data); // Debugging: log the response
+        setTours(result.data.message); // Ensure this is an array
       } catch (error) {
         toast.error("Error fetching tours: " + error.message);
       }
@@ -73,7 +71,7 @@ function TGHome() {
           My Tour Packages
         </h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {tours.length > 0 ? (
+          {Array.isArray(tours) && tours.length > 0 ? (
             tours.map((tour) => (
               <div
                 key={tour._id}
@@ -90,7 +88,10 @@ function TGHome() {
                 )}
                 <h3 className="text-xl font-bold mb-2">{tour.package_name}</h3>
                 <div className="mb-2 h-20 overflow-y-auto">
-                  <FontAwesomeIcon icon={faBox} className="mr-2 text-amber-700" />
+                  <FontAwesomeIcon
+                    icon={faBox}
+                    className="mr-2 text-amber-700"
+                  />
                   <span>{tour.package_description}</span>
                 </div>
                 <div className="mb-2">
@@ -101,11 +102,17 @@ function TGHome() {
                   <span>${tour.package_price}</span>
                 </div>
                 <div className="mb-2">
-                  <FontAwesomeIcon icon={faUsers} className="mr-2 text-amber-700" />
+                  <FontAwesomeIcon
+                    icon={faUsers}
+                    className="mr-2 text-amber-700"
+                  />
                   <span>Spaces Left: {tour.space_left}</span>
                 </div>
                 <div className="mb-2">
-                  <FontAwesomeIcon icon={faUser} className="mr-2 text-amber-700" />
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    className="mr-2 text-amber-700"
+                  />
                   <span>Total Spaces: {tour.total_space}</span>
                 </div>
                 <div className="absolute bottom-4 right-4 space-x-2">
