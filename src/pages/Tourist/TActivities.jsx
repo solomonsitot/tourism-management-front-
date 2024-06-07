@@ -50,7 +50,7 @@ function TActivities() {
         link5="Shops"
         href5="/tourist/see-shops"
       />
-      <div className="container mx-auto p-4">
+      {/* <div className="container mx-auto p-4">
         <ToastContainer />
         <h1 className="text-3xl font-bold mb-4">My Activities</h1>
         {loading ? (
@@ -77,7 +77,7 @@ function TActivities() {
             />
           </div>
         )}
-      </div>
+      </div> */}
     </>
   );
 }
