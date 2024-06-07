@@ -113,7 +113,7 @@ function TActivities() {
                   <div className="mb-2 md:mb-0">
                     <p>
                       <FontAwesomeIcon icon={faShoppingCart} className="mr-2" />
-                      Shop: {item.shop_owner.full_name}
+                      Shop: {item.shop.full_name}
                     </p>
                   </div>
                   <div className="mb-2 md:mb-0">
