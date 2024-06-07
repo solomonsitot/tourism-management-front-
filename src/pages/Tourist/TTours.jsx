@@ -46,7 +46,7 @@ function TTours() {
             <input
               className="w-full h-full p-4 border-solid border-2 border-gray-300 rounded-full focus:outline-none pl-12"
               type="text"
-              placeholder="Search for hotels..."
+              placeholder="Search for Agents..."
               onChange={(e) => {
                 setKey(e.target.value);
               }}

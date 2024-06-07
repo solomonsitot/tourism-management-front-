@@ -91,14 +91,11 @@ function THome() {
             </h1>
             <div className="text-xl my-3">
               <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry.
+                your Trip companion
               </p>
             </div>
             <div className="flex gap-4 mt-8 justify-center">
-              <button className="bg-green-950 text-white font-bold px-6 py-2 rounded-full transition-transform transform hover:scale-105">
-                Get Started
-              </button>
+
               <div className="flex items-center border rounded-full overflow-hidden">
                 <input
                   className="border-none p-3 text-green-950 focus:outline-none"
