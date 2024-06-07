@@ -79,16 +79,12 @@ const HRoomEdit = () => {
           },
         }
       );
-      toast.success(response.data.message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.success(response.data.message);
       setTimeout(() => {
         navigate("/hotel manager");
       }, 3000);
     } catch (error) {
-      toast.error("Error updating room: " + error.message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error("Error updating room: " + error.message);
     } finally {
       setLoading(false);
     }

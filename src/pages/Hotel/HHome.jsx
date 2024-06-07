@@ -36,13 +36,23 @@ const HHome = () => {
       return; // Cancel deletion if user does not confirm
     }
     try {
-      await axios.delete(`${BACKEND_URL}/rooms/delete/${id}`, {
+      const response = await axios.delete(`${BACKEND_URL}/rooms/delete/${id}`, {
         withCredentials: true,
       });
-      setRooms(rooms.filter((room) => room._id !== id));
-      toast.success("Room deleted successfully");
+      console.log(response);
+      if (response.status === 200) {
+        setRooms(rooms.filter((room) => room._id !== id));
+        console.log(first);
+        toast.success("Room deleted successfully");
+      } else {
+        toast.error("Failed to delete room: " + response.data.message);
+      }
     } catch (error) {
-      toast.error("Error deleting room: " + error.message);
+      console.error("Error deleting room:", error.response || error.message);
+      toast.error(
+        "Error deleting room: " +
+          (error.response?.data?.message || error.message)
+      );
     }
   };
 
@@ -80,7 +90,9 @@ const HHome = () => {
                 <h3 className="text-xl font-bold mb-2">{room.room_name}</h3>
                 <p className="mb-2">{room.room_description}</p>
                 <p className="font-semibold mb-2">Price: ${room.room_price}</p>
-                <p className="font-semibold mb-4">Available: {room.room_available}</p>
+                <p className="font-semibold mb-4">
+                  Available: {room.room_available}
+                </p>
                 <div className="flex space-x-4">
                   <button
                     onClick={() => handleEdit(room._id)}
