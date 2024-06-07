@@ -10,6 +10,8 @@ import starIcon from "../../assets/star.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useRedirectLogoutUsers from "../../hooks/redirectLogoutUsers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle, faClock, faBan } from "@fortawesome/free-solid-svg-icons";
 
 function THotels() {
   useRedirectLogoutUsers("/login");
@@ -26,6 +28,19 @@ function THotels() {
     }
     fetchData();
   }, [key]);
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case "verified":
+        return <FontAwesomeIcon icon={faCheckCircle} className="text-green-600 ml-2" />;
+      case "pending":
+        return <FontAwesomeIcon icon={faClock} className="text-yellow-600 ml-2" />;
+      case "banned":
+        return <FontAwesomeIcon icon={faBan} className="text-red-600 ml-2" />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -75,8 +90,9 @@ function THotels() {
                 alt="Hotel"
               />
               <div className="p-5 lg:w-2/3">
-                <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                <h1 className="text-2xl font-bold text-gray-800 mb-2 flex items-center">
                   {hotel.company_name}
+                  {getStatusIcon(hotel.verification_status)}
                 </h1>
                 <div className="flex items-center text-gray-600 mb-4">
                   <img className="h-5 mr-2" src={locationIcon} alt="Location" />
