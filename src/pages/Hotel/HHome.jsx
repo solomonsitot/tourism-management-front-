@@ -42,7 +42,6 @@ const HHome = () => {
       console.log(response);
       if (response.status === 200) {
         setRooms(rooms.filter((room) => room._id !== id));
-        console.log(first);
         toast.success("Room deleted successfully");
       } else {
         toast.error("Failed to delete room: " + response.data.message);
