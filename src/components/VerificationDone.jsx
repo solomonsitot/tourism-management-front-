@@ -64,7 +64,7 @@ function VerificationDone() {
 
         <button
           onClick={changeSite}
-          className={`bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded flex items-center ${
+          className={`bg-green-700 hover:bg-green-950 text-white font-semibold py-2 px-4 rounded flex items-center ${
             stat ? "block" : "hidden"
           }
           }`}
