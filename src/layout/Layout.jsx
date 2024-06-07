@@ -44,6 +44,7 @@ import ABlogList from "../pages/Admin/ABlogList";
 import VerificationDone from "../components/VerificationDone";
 import Home from "../pages/Auth/Home";
 import TActivities from "../pages/Tourist/TActivities";
+import ReVerificationDone from "../pages/Auth/ReVerificationDone";
 
 function Layout() {
   return (
@@ -58,6 +59,7 @@ function Layout() {
       <Route path="/update-cridential" element={<UpdateCridentials />} />
       <Route path="/thanks" element={<ThankYou />} />
       <Route path="/verify-user/:verifyToken" element={<VerificationDone />} />
+      <Route path="/verify-user-resend/:verifyToken" element={<ReVerificationDone />} />
       <Route path="/tourist">
         <Route path="" element={<THome />} />
         <Route path="destinations" element={<TDestinations />} />
