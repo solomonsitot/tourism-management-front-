@@ -39,9 +39,9 @@ function BlogModal(props) {
             <div className="text-lg my-4 text-gray-700 max-h-64 overflow-y-auto">
               {blogObj.blog_description}
             </div>
-            <p className="text-sm text-gray-500">
+            {/* <p className="text-sm text-gray-500">
               {new Date(blogObj.blog_date).toLocaleDateString()}
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

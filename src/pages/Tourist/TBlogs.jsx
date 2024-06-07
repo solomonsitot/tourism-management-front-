@@ -73,10 +73,10 @@ function TBlogs() {
                 {blog.blog_description}
               </p>
 
-              <div className="flex justify-between px-4">
-                <p className="my-1 py-1 text-gray-500 text-sm">
+              <div className="flex justify-center px-4">
+                {/* <p className="my-1 py-1 text-gray-500 text-sm">
                   {new Date(blog.blog_date).toLocaleDateString()}
-                </p>
+                </p> */}
                 <button
                   className="text-sm text-green-950"
                   onClick={() => {
