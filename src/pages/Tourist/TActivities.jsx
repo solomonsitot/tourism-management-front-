@@ -22,7 +22,10 @@ function TActivities() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${BACKEND_URL}/user/get-my-activity`);
+        const response = await axios.get(
+          `${BACKEND_URL}/user/get-my-activity`,
+          { withCredentials: true }
+        );
         setData(response.data);
         console.log(response.data);
         setLoading(false);
