@@ -59,14 +59,14 @@ function HReservations() {
                 <h2 className="text-2xl font-bold mb-4 text-blue-600">
                   {reservation.room.room_name}
                 </h2>
-                <p className="text-lg mb-2 flex items-center">
+                {/* <p className="text-lg mb-2 flex items-center">
                   <FontAwesomeIcon
                     icon={faUser}
                     className="mr-2 text-green-950"
                   />
                   <span className="font-semibold">Customer:</span>{" "}
                   {reservation.customer.full_name}
-                </p>{" "}
+                </p>{" "} */}
                 <p className="text-lg mb-2 flex items-center">
                   <FontAwesomeIcon
                     icon={faEnvelope}

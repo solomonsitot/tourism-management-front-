@@ -150,7 +150,13 @@ function TActivities() {
                   <div className="mb-2 md:mb-0">
                     <p>
                       <FontAwesomeIcon icon={faMapMarkedAlt} className="mr-2" />
-                      Package: {item.package.name}
+                      Agency: {item.agency.full_name}
+                    </p>
+                  </div>{" "}
+                  <div className="mb-2 md:mb-0">
+                    <p>
+                      <FontAwesomeIcon icon={faMapMarkedAlt} className="mr-2" />
+                      Package: {item.package.package_name}
                     </p>
                   </div>
                   <div>
