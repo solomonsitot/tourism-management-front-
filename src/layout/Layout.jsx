@@ -43,6 +43,7 @@ import ADestinationList from "../pages/Admin/ADestinationList";
 import ABlogList from "../pages/Admin/ABlogList";
 import VerificationDone from "../components/VerificationDone";
 import Home from "../pages/Auth/Home";
+import TActivities from "../pages/Tourist/TActivities";
 
 function Layout() {
   return (
@@ -62,6 +63,7 @@ function Layout() {
         <Route path="destinations" element={<TDestinations />} />
         <Route path="see-blogs" element={<TBlogs />} />
         <Route path="see-hotels" element={<THotels />} />
+        <Route path="my-activities" element={<TActivities />} />
         <Route path="see-hotels/detail/:id?" element={<THotelDetail />} />
         <Route
           path="see-hotels/detail/:id?/reserve/:rid?"

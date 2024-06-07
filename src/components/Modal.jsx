@@ -154,6 +154,16 @@ function Modal({ onClose }) {
         </div>
         <div className="p-4 border-t border-gray-200">
           <button
+            className={`bg-blue-500 text-white w-full py-2 rounded-xl mb-2 hover:bg-blue-600 flex items-center justify-center ${
+              role === "tourist" ? "block" : "hidden"
+            } `}
+            onClick={() => {
+              navigate("my-activities");
+            }}
+          >
+            <FontAwesomeIcon icon={faUserEdit} className="mr-2" /> My Activities
+          </button>{" "}
+          <button
             className="bg-blue-500 text-white w-full py-2 rounded-xl mb-2 hover:bg-blue-600 flex items-center justify-center"
             onClick={() => {
               navigate("/update-cridential");
