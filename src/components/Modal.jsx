@@ -54,7 +54,7 @@ function Modal({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 mt-20 flex justify-end items-center">
+    <div className="fixed inset-0 z-[10000] mt-20 flex justify-end items-center">
       <div className="w-80 bg-white shadow-lg h-full flex flex-col">
         <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200">
           <h3 className="text-lg font-semibold">User Information</h3>
