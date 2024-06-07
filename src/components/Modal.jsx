@@ -158,7 +158,7 @@ function Modal({ onClose }) {
               role === "tourist" ? "block" : "hidden"
             } `}
             onClick={() => {
-              navigate("my-activities");
+              navigate("/tourist/my-activities");
             }}
           >
             <FontAwesomeIcon icon={faUserEdit} className="mr-2" /> My Activities
