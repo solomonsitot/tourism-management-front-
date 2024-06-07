@@ -41,7 +41,6 @@ import TShops from "../pages/Tourist/TShops";
 import SideNav from "../pages/Admin/SideNav";
 import ADestinationList from "../pages/Admin/ADestinationList";
 import ABlogList from "../pages/Admin/ABlogList";
-import VerificationDone from "../pages/Auth/VerificationDone";
 import Home from "../pages/Auth/Home";
 import TActivities from "../pages/Tourist/TActivities";
 import VerificationDone from "../pages/Auth/VerificationDone";
