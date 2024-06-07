@@ -11,11 +11,13 @@ import {
   SET_NAME,
   SET_ROLE,
 } from "../../redux/features/auth/authSlice";
+import axios from "axios";
 function Login() {
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
   const [email, setEmail] = useState();
+  const [emails, setEmails] = useState();
   const [password, setPassword] = useState();
-  const [info, setInfo] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   async function login(e) {
@@ -42,7 +44,8 @@ function Login() {
         credentials: "include",
       });
       const data = await response.json();
-
+      setMessage(data.message);
+      setEmails(data.email);
       if (data.body) {
         await dispatch(SET_LOGIN(true));
         await dispatch(SET_NAME(data.body.full_name));
@@ -69,7 +72,10 @@ function Login() {
       console.log("Error occurred during login:", error);
     }
   }
-
+  async function resendEmail() {
+    const response = await axios.post(`${BACKEND_URL}/user/resend-email`);
+    toast(response.data.message);
+  }
   return (
     <>
       <div className="flex">
@@ -114,14 +120,26 @@ function Login() {
           >
             Login
           </button>
-          <p className="mt-4">
-          <a className="text-blue-500" href="/forgot-password">
-              forgot password 
+          <p className="my-4">
+            <a className="text-blue-500" href="/forgot-password">
+              forgot password
             </a>
-             {" have No account "}
+            {" have No account "}
             <a className="text-blue-500" href="/signup">
               SignUp
             </a>
+          </p>
+          <p
+            className={`${
+              message === "please confirm your email to login"
+                ? "block"
+                : "hidden"
+            }`}
+          >
+            {"Email expires? "}
+            <span className="text-blue-500 underline" onClick={resendEmail}>
+              Resend Again
+            </span>
           </p>
         </div>
       </div>
