@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function BlogModal(props) {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const [blogObj, setBlogObject] = useState({});
   const id = props.id;
 
   useEffect(() => {
     async function fetchBlog() {
-      const result = await axios.get(
-        `http://localhost:7000/blogs/get-single/${id}`
-      );
+      const result = await axios.get(`${BACKEND_URL}/blogs/get-single/${id}`);
       setBlogObject(result.data);
     }
     fetchBlog();

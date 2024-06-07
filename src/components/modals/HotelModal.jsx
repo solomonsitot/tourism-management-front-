@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react";
 import springs from "../../assets/40 Spring.jpg";
 
 function HotelModal(props) {
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
   const [hotelObj, setHotelObj] = useState([]);
 
   const id = props.id;
   useEffect(() => {
     async function fetchHotel() {
       const result = await axios.get(
-        `http://localhost:8000/user/get-single-user/${id}`
+        `${BACKEND_URL}/user/get-single-user/${id}`
       );
       setHotelObj(result.data);
       //   console.log(result.data);
