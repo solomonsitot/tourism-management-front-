@@ -15,7 +15,7 @@ import {
   SET_LOGIN,
   selectId,
   selectRole,
-} from "../redux/features/auth/authSlice";
+} from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 
 function Modal({ onClose }) {
