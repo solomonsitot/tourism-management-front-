@@ -73,9 +73,17 @@ function Login() {
     }
   }
   async function resendEmail() {
-    const response = await axios.post(`${BACKEND_URL}/user/resend-email`);
-    toast(response.data.message);
+    try {
+      const response = await axios.post(`${BACKEND_URL}/user/resend-email`, {
+        emails,
+      });
+      toast(response.data.message);
+    } catch (error) {
+      console.error("Error occurred while resending email:", error);
+      toast.error("Failed to resend email");
+    }
   }
+
   return (
     <>
       <div className="flex">
