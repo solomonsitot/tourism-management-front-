@@ -41,7 +41,7 @@ function SPurchasement() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {purchases.map((purchase) => (
               <div
-                key={purchase._id} 
+                key={purchase._id}
                 className="bg-green-900 rounded-lg p-6 shadow-lg"
               >
                 <h2 className="text-xl font-bold mb-4">
@@ -71,7 +71,8 @@ function SPurchasement() {
             ))}
           </div>
         )}
-      </div>    </div>
+      </div>{" "}
+    </div>
   );
 }
 

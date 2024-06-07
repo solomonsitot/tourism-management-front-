@@ -20,9 +20,7 @@ function TBlogs() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(
-        `${BACKEND_URL}/blogs/search/${key}`
-      );
+      const result = await axios.get(`${BACKEND_URL}/blogs/search/${key}`);
       setBlogObject(result.data);
     }
     fetchData();
@@ -63,16 +61,21 @@ function TBlogs() {
       <div className="flex flex-wrap  ">
         {blogObj.map((blog, index) => {
           return (
-            <div key={index} className="flex-grow w-full lg:w-1/2 p-6 overflow-hidden rounded-xl shadow-xl text-center transform transition-transform hover:scale-105">
+            <div
+              key={index}
+              className="flex-grow w-full lg:w-1/2 p-6 overflow-hidden rounded-xl shadow-xl text-center transform transition-transform hover:scale-105"
+            >
               <img src={blog.blog_image} alt="" />
               <p className="font-bold border-l-4 my-1 text-xl px-3 py-1 border-l-green-950">
                 {blog.blog_title}
               </p>
-              <p className="h-28 overflow-y-scroll my-1 px-4 py-1 text-xl">{blog.blog_description}</p>
+              <p className="h-28 overflow-y-scroll my-1 px-4 py-1 text-xl">
+                {blog.blog_description}
+              </p>
 
               <div className="flex justify-between px-4">
                 <p className="my-1 py-1 text-gray-500 text-sm">
-                  {blog.blog_date}
+                  {new Date(blog.blog_date).toLocaleDateString()}
                 </p>
                 <button
                   className="text-sm text-green-950"
@@ -101,4 +104,3 @@ function TBlogs() {
 }
 
 export default TBlogs;
-
